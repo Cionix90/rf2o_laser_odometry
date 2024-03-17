@@ -176,7 +176,7 @@ void CLaserOdometry2DNode::process()
   else
   {
     // This is a warning. We depend on laser scans, so no meaning running faster than scan freq.
-    RCLCPP_WARN(get_logger(), "Waiting for laser_scans....");
+    RCLCPP_DEBUG(get_logger(), "Waiting for laser_scans....");
   }
 }
 
@@ -188,6 +188,7 @@ void CLaserOdometry2DNode::process()
 */
 void CLaserOdometry2DNode::initPoseCallBack(const nav_msgs::msg::Odometry::SharedPtr new_initPose)
 {
+  RCLCPP_INFO(get_logger(), "Initial pose received");
   // Initialize module on first GT pose. Else do Nothing!
   if (!GT_pose_initialized)
   {

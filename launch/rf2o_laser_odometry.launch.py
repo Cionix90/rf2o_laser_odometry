@@ -12,20 +12,21 @@ from launch.actions import ExecuteProcess
 from launch.substitutions import LaunchConfiguration, PythonExpression
 from launch_ros.actions import Node
 
+
 def generate_launch_description():
 
     return LaunchDescription([
 
             Node(
-                package='rf2o_laser_odometry',
+                package='rf2o',
                 executable='rf2o_laser_odometry_node',
-                name='rf2o_laser_odometry',
+                # name='rf2o_laser_odometry',
                 output='screen',
                 parameters=[{
-                    'laser_scan_topic' : '/scan',
+                    'laser_scan_topic' : '/scanner/scan',
                     'odom_topic' : '/odom_rf2o',
                     'publish_tf' : True,
-                    'base_frame_id' : 'base_link',
+                    'base_frame_id' : 'map',
                     'odom_frame_id' : 'odom',
                     'init_pose_from_topic' : '',
                     'freq' : 20.0}],
