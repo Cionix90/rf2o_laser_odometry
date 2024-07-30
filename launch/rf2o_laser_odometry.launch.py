@@ -28,7 +28,7 @@ def generate_launch_description():
                     'publish_tf' : True,
                     'base_frame_id' : 'base_link',
                     'odom_frame_id' : 'odom',
-                    'freq' : 20.0,
+                    'freq' : 50.0,
                     "lidar_mounting_angle":-45.0}],
             ),
     ])
