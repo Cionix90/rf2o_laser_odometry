@@ -8,7 +8,12 @@
 #include <tf2/impl/utils.h>
 #include <tf2_geometry_msgs/tf2_geometry_msgs.hpp>
 #include <tf2/utils.h>
+#include "geometry_msgs/msg/transform_stamped.hpp"
 
+#include "tf2/LinearMath/Quaternion.h"
+#include "tf2_ros/static_transform_broadcaster.h"
+#include "rclcpp/serialization.hpp"
+#include "rclcpp/serialized_message.hpp"
 namespace rf2o {
 
 class CLaserOdometry2DNode : public rclcpp::Node
@@ -22,8 +27,8 @@ public:
 
   // Params & vars
   CLaserOdometry2D    rf2o_ref;
-  bool                publish_tf, new_scan_available;
-  double              freq;
+  bool                publish_tf, new_scan_available, pub_pose_only_;
+  double              freq,yaw_offset;
   std::string         laser_scan_topic;
   std::string         odom_topic;
   std::string         base_frame_id;
@@ -41,6 +46,9 @@ public:
   rclcpp::Subscription<sensor_msgs::msg::LaserScan>::SharedPtr  laser_sub;
   rclcpp::Subscription<nav_msgs::msg::Odometry>::SharedPtr      initPose_sub;
   rclcpp::Publisher<nav_msgs::msg::Odometry>::SharedPtr         odom_pub;
+  geometry_msgs::msg::TransformStamped t_laser_;
+  std::shared_ptr<tf2_ros::StaticTransformBroadcaster> tf_static_broadcaster_;
+  rclcpp::Publisher<geometry_msgs::msg::PoseWithCovarianceStamped>::SharedPtr pose_pub_;
 
   // CallBacks
   void LaserCallBack(const sensor_msgs::msg::LaserScan::SharedPtr new_scan);
